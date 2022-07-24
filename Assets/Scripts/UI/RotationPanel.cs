@@ -6,7 +6,7 @@ namespace UI
 {
     public class RotationPanel : MonoBehaviour, IDragHandler
     { 
-        public static Action<Vector2> OnPointerDrag;
+        public static event Action<Vector2> OnPointerDrag;
 
         public void OnDrag(PointerEventData eventData)
         {

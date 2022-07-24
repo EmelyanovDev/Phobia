@@ -9,11 +9,15 @@ namespace Player
     
     public class PlayerInteraction : Singleton<PlayerInteraction>
     {
+        [SerializeField] private InteractionMode interactionMode;
         [SerializeField] private float requiredDistance;
+        [SerializeField] private float acceptableDifference;
         
         private Interactive _interactiveObject;
         private InteractionRaycast _interactionRaycast;
+        private Vector2 _touchStartPosition;
 
+        public InteractionMode InteractionMode => interactionMode;
         public static Action<bool> OnInteractiveObject;
 
         private void Awake()
@@ -21,7 +25,39 @@ namespace Player
             _interactionRaycast = GetComponent<InteractionRaycast>();
         }
 
-        private void Update() => CheckInteractiveObject();
+        private void Update()
+        {
+            switch (interactionMode)
+            {
+                case InteractionMode.Button:
+                    CheckInteractiveObject();
+                    break;
+                case InteractionMode.ScreenTouch:
+                    CheckScreenTouch();
+                    break;
+            }
+        }
+
+        private void CheckScreenTouch()
+        {
+            if (Input.touchCount <= 0) return; 
+            Touch touch = Input.GetTouch(0);
+            switch (touch.phase)
+            {
+                case TouchPhase.Began:
+                    _touchStartPosition = touch.position;
+                    break;
+                case TouchPhase.Ended:
+                    var difference = touch.position - _touchStartPosition;
+                    if (difference.magnitude <= acceptableDifference)
+                    {
+                        var collider = _interactionRaycast.RaycastInTouch(touch.position);
+                        _interactiveObject = IsInteractive(collider);
+                        Interact();
+                    }
+                    break;
+            }
+        }
 
         private void CheckInteractiveObject()
         {
@@ -34,7 +70,8 @@ namespace Player
         {
             if (collider == null) return null;
             if (collider.TryGetComponent(out Interactive interactable) == false) return null;
-            if (transform.position.DistanceIsLess(collider.transform.position, requiredDistance))
+            Vector3 colliderPosition = collider.transform.position;
+            if (Vector3.Distance(transform.position, colliderPosition) < requiredDistance)
                 return interactable;
             return null;
         }
@@ -43,6 +80,11 @@ namespace Player
         {
             if(_interactiveObject != null)
                 _interactiveObject.Interact();
+        }
+
+        public void ChangeInteractionMode(InteractionMode mode)
+        {
+            interactionMode = mode;
         }
     }
 }

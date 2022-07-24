@@ -1,29 +1,36 @@
 using Interaction.InteractiveObjects;
+using Player;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Inventory
 {
     public class Slot : MonoBehaviour
     {
-        [SerializeField] private SlotItemView slotItemTemplate;
-
-        private SlotItemView _itemView;
-
-        private Item _slotItem;
+        [SerializeField] private Image slotItemIcon;
         
-        public bool IsEmpty => _itemView == null;
+        private Item _slotItem;
+
+        private PlayerHands _playerHands;
+        
+        public bool IsEmpty => _slotItem == null;
+
+        private void Awake() => _playerHands = PlayerHands.Instance;
 
         public void Fill(Item item)
         {
-            var newItem = Instantiate(slotItemTemplate, transform);
-            _itemView = newItem;
-            _itemView.SetIcon(item.ItemIcon);
+            slotItemIcon.gameObject.SetActive(true);
+            slotItemIcon.sprite = item.ItemIcon;
             _slotItem = item;
         }
 
         public void Release()
         {
+            if (_playerHands.IsBusy) return;
             
+            slotItemIcon.gameObject.SetActive(false);
+            _playerHands.TakeItem(_slotItem);
+            _slotItem = null;
         }
     }
 }
