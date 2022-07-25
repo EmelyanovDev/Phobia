@@ -7,6 +7,7 @@ namespace Player
     public class PlayerRotation : MonoBehaviour
     {
         [SerializeField] private float rotationSpeed;
+        [SerializeField] private float smoothnessValue;
         
         private CameraRotation _cameraRotation;
 
@@ -23,7 +24,7 @@ namespace Player
         {
             Vector2 rotate = touchDelta * Time.deltaTime * rotationSpeed;
             Vector3 target = transform.localEulerAngles += new Vector3(0, rotate.x);
-            transform.localEulerAngles += new Vector3(0, rotate.x);
+            transform.localEulerAngles = Vector3.MoveTowards(transform.localEulerAngles, target, smoothnessValue * Time.deltaTime);
             
             _cameraRotation.RotateCamera(-rotate.y);
         }

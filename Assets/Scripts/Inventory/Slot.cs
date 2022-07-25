@@ -9,11 +9,12 @@ namespace Inventory
     {
         [SerializeField] private Image slotItemIcon;
         
-        private Item _slotItem;
+        private Item _item;
 
         private PlayerHands _playerHands;
         
-        public bool IsEmpty => _slotItem == null;
+        public bool IsEmpty => _item == null;
+        public Item Item => _item;
 
         private void Awake() => _playerHands = PlayerHands.Instance;
 
@@ -21,7 +22,7 @@ namespace Inventory
         {
             slotItemIcon.gameObject.SetActive(true);
             slotItemIcon.sprite = item.ItemIcon;
-            _slotItem = item;
+            _item = item;
         }
 
         public void Release()
@@ -29,8 +30,7 @@ namespace Inventory
             if (_playerHands.IsBusy) return;
             
             slotItemIcon.gameObject.SetActive(false);
-            _playerHands.TakeItem(_slotItem);
-            _slotItem = null;
+            _playerHands.TakeItem(this);
         }
     }
 }
