@@ -37,11 +37,15 @@ namespace Interaction.InteractiveObjects
             _slotsHub.TryFillEmptySlot(this);  
         }
 
-        public void HandMode(bool condition)
+        public void HandMode(bool condition, Transform spawnPoint)
         {
             InHand = condition;
             _rigidbody.isKinematic = condition;
             _collider.enabled = !condition;
+            
+            transform.position = spawnPoint.position;
+            transform.rotation = spawnPoint.rotation;
+
             ChangeLayer(condition ? _topLayer : _defaultLayer);
         }
 

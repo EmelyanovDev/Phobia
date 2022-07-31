@@ -1,4 +1,5 @@
-﻿using UI;
+﻿using System;
+using UI;
 using UnityEngine;
 using View;
 
@@ -6,7 +7,7 @@ namespace Player
 {
     public class PlayerRotation : MonoBehaviour
     {
-        [SerializeField] private float rotationSpeed;
+        [SerializeField] private float sensitivity;
         [SerializeField] private float smoothnessValue;
         
         private CameraRotation _cameraRotation;
@@ -16,17 +17,19 @@ namespace Player
             _cameraRotation = GetComponentInChildren<CameraRotation>();
         }
 
-        private void OnEnable() => RotationPanel.OnPointerDrag += Rotate;
+        private void OnEnable() => RotationPanel.OnPointerDrag += RotatePlayer;
 
-        private void OnDisable() => RotationPanel.OnPointerDrag -= Rotate;
+        private void OnDisable() => RotationPanel.OnPointerDrag -= RotatePlayer;
 
-        private void Rotate(Vector2 touchDelta)
+        private void RotatePlayer(Vector2 touchDelta)
         {
-            Vector2 rotate = touchDelta * Time.deltaTime * rotationSpeed;
+            Vector2 rotate = touchDelta * Time.deltaTime * sensitivity;
             Vector3 target = transform.localEulerAngles += new Vector3(0, rotate.x);
-            transform.localEulerAngles = Vector3.MoveTowards(transform.localEulerAngles, target, smoothnessValue * Time.deltaTime);
+            transform.localEulerAngles = target;
             
             _cameraRotation.RotateCamera(-rotate.y);
         }
+
+        public void ChangeSensitivity(float value) => sensitivity = value;
     }
 }

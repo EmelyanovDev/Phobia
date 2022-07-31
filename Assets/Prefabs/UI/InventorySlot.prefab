@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 4560891061387229341}
   - component: {fileID: 7838619634530631289}
   - component: {fileID: 6015604377546705300}
+  - component: {fileID: 3990755477969220372}
   m_Layer: 5
-  m_Name: SlotItem
+  m_Name: SlotItemView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,6 +77,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3990755477969220372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 770070235409267652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a948911266d04c009be7e0511e56c055, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemIcon: {fileID: 6015604377546705300}
 --- !u!1 &4145985291774252204
 GameObject:
   m_ObjectHideFlags: 0
@@ -90,7 +104,7 @@ GameObject:
   - component: {fileID: 4145985291774252202}
   - component: {fileID: 4145985291774252201}
   m_Layer: 5
-  m_Name: InventorySlot (1)
+  m_Name: InventorySlot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -198,19 +212,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4145985291774252203}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4145985291774252201}
-        m_TargetAssemblyTypeName: Inventory.Slot, Assembly-CSharp
-        m_MethodName: Release
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &4145985291774252201
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -223,4 +225,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96e0593d1b5d5244a8ea7ad6a79a7159, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slotItemIcon: {fileID: 6015604377546705300}
+  slotItemView: {fileID: 3990755477969220372}

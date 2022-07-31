@@ -9,46 +9,51 @@ namespace Player
     {
         [SerializeField] private GameObject itemButtons;
         [SerializeField] private Transform itemsSpawnPoint;
-        [SerializeField] private Transform itemsDropPoint;
-        [SerializeField] private float itemsActivateDelay;
 
-        private Slot _takenItemSlot;
-        private SlotsHub _slotsHub;
-
+        [SerializeField] private Slot _takenItemSlot;
         public bool IsBusy => _takenItemSlot != null;
 
-        private void Awake() => _slotsHub = SlotsHub.Instance;
-
-        public void TakeItem(Slot slot)
+        private void TakeItem(Slot itemSlot)
         {
-            var item = slot.Item;
-            item.HandMode(true);
-            item.gameObject.SetActive(true);
-            item.transform.position = itemsSpawnPoint.position;
-            item.transform.rotation = itemsSpawnPoint.rotation;
-            item.transform.parent = itemsSpawnPoint;
+            _takenItemSlot = itemSlot;
             itemButtons.SetActive(true);
-            _takenItemSlot = slot;
+            itemSlot.ChangeTransparency(0.5f);
+            var item = itemSlot.SelfItem;
+            item.HandMode(true, itemsSpawnPoint);
+            item.transform.parent = itemsSpawnPoint;
+            item.gameObject.SetActive(true);
         }
 
-        /*
-        public void PutItemInInventory()
+        private void ReturnItemInSlot()
         {
-            if (_slotsHub.TryFillEmptySlot(_takenItemSlot))
+            _takenItemSlot.SelfItem.gameObject.SetActive(false);
+            _takenItemSlot.ChangeTransparency(1f);
+            itemButtons.SetActive(false);
+            _takenItemSlot = null;
+        }
+
+        public void ChangeItem(Slot itemSlot)
+        {
+            if(IsBusy)
             {
-                itemButtons.SetActive(false);
-                _takenItemSlot = null;
+                var previousSlot = _takenItemSlot;
+                 ReturnItemInSlot();
+                 if(previousSlot != itemSlot)
+                     TakeItem(itemSlot);
             }
-        }*/
+            else
+            {
+                TakeItem(itemSlot);
+            }
+        }
 
         public void DropItem()
         {
-            var item = _takenItemSlot.Item;
-            var itemTransform = item.transform;
-            itemTransform.position = itemsDropPoint.position;
-            itemTransform.parent = null;
-            item.HandMode(false);
+            var item = _takenItemSlot.SelfItem;
+            item.transform.parent = null;
+            item.HandMode(false, itemsSpawnPoint);
             itemButtons.SetActive(false);
+            _takenItemSlot.ReleaseSlot();
             _takenItemSlot = null;
         }
     }

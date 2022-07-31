@@ -25,7 +25,6 @@ namespace Items
             if (InHand == false) return;
 
             float distance = Vector3.Distance(transform.position, _ghost.transform.position);
-            print(distance);
             int colorIndex = ArrayUtility.RangeIndex(distance, ghostDistances);
             activityDisplay.color = activityColors[colorIndex];
         }

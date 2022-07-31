@@ -1,36 +1,49 @@
 using Interaction.InteractiveObjects;
 using Player;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 namespace Inventory
 {
-    public class Slot : MonoBehaviour
+    public class Slot : MonoBehaviour, IPointerClickHandler
     {
-        [SerializeField] private Image slotItemIcon;
+        [SerializeField] private SlotItemView slotItemView;
         
-        private Item _item;
-
+        private Item _selfItem;
         private PlayerHands _playerHands;
-        
-        public bool IsEmpty => _item == null;
-        public Item Item => _item;
 
-        private void Awake() => _playerHands = PlayerHands.Instance;
+        public bool IsEmpty => _selfItem == null;
+        public Item SelfItem => _selfItem;
 
-        public void Fill(Item item)
+        private void Awake()
         {
-            slotItemIcon.gameObject.SetActive(true);
-            slotItemIcon.sprite = item.ItemIcon;
-            _item = item;
+            _playerHands = PlayerHands.Instance;
         }
 
-        public void Release()
+        public void FillSlot(Item item)
         {
-            if (_playerHands.IsBusy) return;
-            
-            slotItemIcon.gameObject.SetActive(false);
-            _playerHands.TakeItem(this);
+            item.gameObject.SetActive(false);
+            slotItemView.ChangeIcon(item.ItemIcon);
+            _selfItem = item;
+            if(_playerHands.IsBusy == false)
+                _playerHands.ChangeItem(this);
+        }
+
+        public void ChangeTransparency(float transparency)
+        {
+            slotItemView.ChangeTransparency(transparency);
+        }
+
+        public void ReleaseSlot()
+        {
+            slotItemView.ChangeIcon(null);
+            _selfItem = null;
+        }
+
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            if (_selfItem == null) return;
+            _playerHands.ChangeItem(this);
         }
     }
 }

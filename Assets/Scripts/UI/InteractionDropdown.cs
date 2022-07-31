@@ -1,5 +1,7 @@
-﻿using Interaction;
+﻿using System;
+using Interaction;
 using Player;
+using SaveSystem;
 using UnityEngine;
 
 namespace UI
@@ -7,9 +9,14 @@ namespace UI
     public class InteractionDropdown : MonoBehaviour
     {
         [SerializeField] private GameObject interactionButton;
+        [SerializeField] private GameObject interactionCursor;
+        
         private PlayerInteraction _playerInteraction;
 
-        private void Awake() => _playerInteraction = PlayerInteraction.Instance;
+        private void Awake()
+        {
+            _playerInteraction = PlayerInteraction.Instance;
+        }
 
         public void ChangeInteractionMode(int modeIndex)
         {
@@ -24,7 +31,9 @@ namespace UI
                     break;
             }
             _playerInteraction.ChangeInteractionMode(newMode);
+            
             interactionButton.SetActive(newMode == InteractionMode.Button);
+            interactionCursor.SetActive(newMode == InteractionMode.Button);
         }
     }
 }

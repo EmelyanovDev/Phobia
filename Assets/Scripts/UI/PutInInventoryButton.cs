@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 
 namespace UI
 {
-    public class PutInInventoryButton : MonoBehaviour, IPointerClickHandler
+    public class PutInInventoryButton : MonoBehaviour//, IPointerClickHandler
     {
         private PlayerHands _playerHands;
 
@@ -13,9 +13,10 @@ namespace UI
             _playerHands = PlayerHands.Instance;
         }
 
+        /*
         public void OnPointerClick(PointerEventData eventData)
         {
             _playerHands.PutItemInInventory();
-        }
+        }*/
     }
 }

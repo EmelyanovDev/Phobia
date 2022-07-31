@@ -128,5 +128,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3891a7c724f4c15a665370150beffec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemIcon: {fileID: 0}
-  actionDelay: 0
+  itemIcon: {fileID: 21300000, guid: 3ec1493ec9117954ab46f6d2f3a03228, type: 3}

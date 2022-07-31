@@ -8,6 +8,9 @@ namespace Interaction
         private Camera _camera;
         private Vector2 _screenCenter;
 
+        private Ray _ray;
+        private RaycastHit _hit;
+
         private void Awake()
         {
             _camera = Camera.main;
@@ -18,6 +21,9 @@ namespace Interaction
         {
             Ray ray = _camera.ScreenPointToRay(_screenCenter);
             RaycastHit hit;
+            _ray = ray;
+            Physics.Raycast(ray, out hit);
+            _hit = hit;
             return Physics.Raycast(ray, out hit) ? hit.collider : null;
         }
 
@@ -26,6 +32,12 @@ namespace Interaction
             Ray ray = _camera.ScreenPointToRay(touchPosition);
             RaycastHit hit;
             return Physics.Raycast(ray, out hit) ? hit.collider : null;
+        }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawSphere(_hit.point, 0.1f);
         }
     }
 }

@@ -130,6 +130,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e0031889b50462481906635ebe2dea2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemIcon: {fileID: 0}
+  itemIcon: {fileID: 21300000, guid: 6304ad603f150b649b764d29bbc2a87b, type: 3}
   delayRange: {x: 0, y: 0}
   ghostVoice: {fileID: 0}

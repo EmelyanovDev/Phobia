@@ -1,5 +1,6 @@
 using System.Linq;
 using Interaction.InteractiveObjects;
+using Player;
 using Utilities;
 
 namespace Inventory
@@ -10,14 +11,11 @@ namespace Inventory
 
         private void Awake() => _slots = GetComponentsInChildren<Slot>();
 
-        public bool TryFillEmptySlot(Item item)
+        public void TryFillEmptySlot(Item item)
         {
             var emptySlot = _slots.FirstOrDefault(slot => slot.IsEmpty);
-            if (emptySlot == null) return false;
-            
-            emptySlot.Fill(item);
-            item.gameObject.SetActive(false);
-            return true;
+            if (emptySlot == null) return;
+            emptySlot.FillSlot(item);
         }
     }
 }
