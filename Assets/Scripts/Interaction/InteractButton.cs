@@ -1,5 +1,5 @@
-﻿using Player;
-using UI;
+﻿using System;
+using Player;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -12,6 +12,10 @@ namespace Interaction
         private void Awake()
         {
             _interaction = PlayerInteraction.Instance;
+        }
+
+        private void Start()
+        {
             if(_interaction.InteractionMode == InteractionMode.ScreenTouch)
                 gameObject.SetActive(false);
         }
@@ -27,7 +31,7 @@ namespace Interaction
         }
 
         private void ChangeActive(bool onInteractive)
-        {
+        {   
             gameObject.SetActive(onInteractive);
         }
 

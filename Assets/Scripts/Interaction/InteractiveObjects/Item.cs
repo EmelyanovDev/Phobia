@@ -27,7 +27,6 @@ namespace Interaction.InteractiveObjects
             _rigidbody = GetComponent<Rigidbody>();
             _collider = GetComponent<Collider>();
             _childs = GetComponentsInChildren<Transform>();
-            
             _defaultLayer = LayerMask.NameToLayer("Default");
             _topLayer = LayerMask.NameToLayer("TopLayer");
         }

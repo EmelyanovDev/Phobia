@@ -1,39 +1,61 @@
-﻿using System;
-using Interaction;
+﻿using Interaction;
 using Player;
 using SaveSystem;
+using TMPro;
 using UnityEngine;
 
 namespace UI
 {
+    [RequireComponent(typeof(TMP_Dropdown))]
+    
     public class InteractionDropdown : MonoBehaviour
     {
-        [SerializeField] private GameObject interactionButton;
-        [SerializeField] private GameObject interactionCursor;
+        [SerializeField] private GameObject buttonModeElements;
         
         private PlayerInteraction _playerInteraction;
+        private TMP_Dropdown _dropdown;
+        private JsonSaveSystem _saveSystem;
 
         private void Awake()
         {
             _playerInteraction = PlayerInteraction.Instance;
+            _dropdown = GetComponent<TMP_Dropdown>();
+            _saveSystem = new JsonSaveSystem();
+            SetInteractionMode();
+        }
+
+        private void SetInteractionMode()
+        {
+            var data = _saveSystem.LoadData();
+            _dropdown.value = data.interactionMode;
+            ChangeInteractionMode(_dropdown.value);
         }
 
         public void ChangeInteractionMode(int modeIndex)
         {
-            InteractionMode newMode = InteractionMode.Button;
-            switch (modeIndex)
+            var newMode = GetModeByIndex(modeIndex);
+            _playerInteraction.ChangeInteractionMode(newMode);
+            buttonModeElements.SetActive(newMode == InteractionMode.Button);
+            SaveNewMode(modeIndex);
+        }
+
+        private void SaveNewMode(int modeIndex)
+        {
+            var data = _saveSystem.LoadData();
+            data.interactionMode = modeIndex;
+            _saveSystem.SaveData(data);
+        }
+
+        private InteractionMode GetModeByIndex(int index)
+        {
+            switch (index)
             {
                 case 0:
-                    newMode = InteractionMode.Button;
-                    break;
+                    return InteractionMode.Button;
                 case 1:
-                    newMode = InteractionMode.ScreenTouch;
-                    break;
+                    return InteractionMode.ScreenTouch;
             }
-            _playerInteraction.ChangeInteractionMode(newMode);
-            
-            interactionButton.SetActive(newMode == InteractionMode.Button);
-            interactionCursor.SetActive(newMode == InteractionMode.Button);
+            return InteractionMode.Button;
         }
     }
 }

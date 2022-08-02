@@ -2,7 +2,7 @@
 {
     public static class ArrayUtility
     {
-        public static int RangeIndex(float value, float[] pos)
+        public static int GetRangeIndex(float value, float[] pos)
         {
             if (value < pos[0])
                 return 4;

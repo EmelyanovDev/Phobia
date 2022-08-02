@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Interaction;
 using UnityEngine;
 using Utilities;
@@ -18,7 +19,7 @@ namespace Player
         private Vector2 _touchStartPosition;
 
         public InteractionMode InteractionMode => interactionMode;
-        public static Action<bool> OnInteractiveObject;
+        public static event Action<bool> OnInteractiveObject;
 
         private void Awake()
         {
@@ -40,8 +41,8 @@ namespace Player
 
         private void CheckScreenTouch()
         {
-            if (Input.touchCount <= 0) return; 
-            Touch touch = Input.GetTouch(0);
+            if (Input.touchCount <= 0) return;
+            Touch touch = Input.touches.Last();
             switch (touch.phase)
             {
                 case TouchPhase.Began:
@@ -63,7 +64,8 @@ namespace Player
         {
             var collider = _interactionRaycast.RaycastInCenter();
             _interactiveObject = IsInteractive(collider);
-            OnInteractiveObject.Invoke(_interactiveObject != null);
+            if(interactionMode == InteractionMode.Button)
+                OnInteractiveObject?.Invoke(_interactiveObject != null);
         }
 
         private Interactive IsInteractive(Collider collider)

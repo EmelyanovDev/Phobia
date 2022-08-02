@@ -7,8 +7,6 @@ namespace Interaction
     {
         private Camera _camera;
         private Vector2 _screenCenter;
-
-        private Ray _ray;
         private RaycastHit _hit;
 
         private void Awake()

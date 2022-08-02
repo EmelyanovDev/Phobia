@@ -1,5 +1,4 @@
-﻿using Interaction.InteractiveObjects;
-using Inventory;
+﻿using Inventory;
 using UnityEngine;
 using Utilities;
 
@@ -9,8 +8,9 @@ namespace Player
     {
         [SerializeField] private GameObject itemButtons;
         [SerializeField] private Transform itemsSpawnPoint;
-
-        [SerializeField] private Slot _takenItemSlot;
+        
+        private Slot _takenItemSlot;
+        
         public bool IsBusy => _takenItemSlot != null;
 
         private void TakeItem(Slot itemSlot)

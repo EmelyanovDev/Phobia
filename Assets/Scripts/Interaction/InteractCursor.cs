@@ -1,4 +1,6 @@
-﻿using Player;
+﻿using System;
+using Player;
+using UI;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,18 +14,26 @@ namespace Interaction
         
         private Sprite _defaultSprite;
         private Image _selfImage;
+        private PlayerInteraction _interaction;
 
         private void Awake()
         {
             _selfImage = GetComponent<Image>();
             _defaultSprite = _selfImage.sprite;
+            _interaction = PlayerInteraction.Instance;
+        }
+
+        private void Start()
+        {
+            if(_interaction.InteractionMode == InteractionMode.ScreenTouch)
+                gameObject.SetActive(false);
         }
 
         private void OnEnable()
         {
             PlayerInteraction.OnInteractiveObject += ChangeCursor;
         }
-        
+
         private void OnDisable()
         {
             PlayerInteraction.OnInteractiveObject -= ChangeCursor;
@@ -33,5 +43,6 @@ namespace Interaction
         {
             _selfImage.sprite = onInteraction ? interactionSprite : _defaultSprite;
         }
+        
     }
 }

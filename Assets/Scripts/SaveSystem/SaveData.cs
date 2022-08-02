@@ -7,6 +7,6 @@ namespace SaveSystem
     public class SaveData
     {
         public float sensitivity;
-        public InteractionMode interactionMode;
+        public int interactionMode;
     }
 }

@@ -1,6 +1,5 @@
 using System.Linq;
 using Interaction.InteractiveObjects;
-using Player;
 using Utilities;
 
 namespace Inventory

@@ -14,7 +14,6 @@ namespace SaveSystem
 
         public void SaveData(SaveData saveData)
         {
-            Debug.Log(_jsonPath);
             string data = JsonUtility.ToJson(saveData);
             File.WriteAllText(_jsonPath, data);
         }

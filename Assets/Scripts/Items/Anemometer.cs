@@ -11,7 +11,6 @@ namespace Items
         [SerializeField] private float[] ghostDistances;
         [SerializeField] private Image activityDisplay;
         [SerializeField] private float actionDelay;
-        
         [SerializeField] private Transform _ghost;
         
         private void Start()
@@ -25,7 +24,7 @@ namespace Items
             if (InHand == false) return;
 
             float distance = Vector3.Distance(transform.position, _ghost.transform.position);
-            int colorIndex = ArrayUtility.RangeIndex(distance, ghostDistances);
+            int colorIndex = ArrayUtility.GetRangeIndex(distance, ghostDistances);
             activityDisplay.color = activityColors[colorIndex];
         }
     }
