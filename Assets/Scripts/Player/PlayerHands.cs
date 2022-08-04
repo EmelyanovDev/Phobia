@@ -26,8 +26,7 @@ namespace Player
 
         private void ReturnItemInSlot()
         {
-            _takenItemSlot.SelfItem.gameObject.SetActive(false);
-            _takenItemSlot.ChangeTransparency(1f);
+            _takenItemSlot.ReturnItemFromHand();
             itemButtons.SetActive(false);
             _takenItemSlot = null;
         }

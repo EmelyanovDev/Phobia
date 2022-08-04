@@ -17,6 +17,8 @@ namespace Player
         private Interactive _interactiveObject;
         private InteractionRaycast _interactionRaycast;
         private Vector2 _touchStartPosition;
+        
+        
 
         public InteractionMode InteractionMode => interactionMode;
         public static event Action<bool> OnInteractiveObject;
@@ -30,12 +32,7 @@ namespace Player
         {
             switch (interactionMode)
             {
-                case InteractionMode.Button:
-                    CheckInteractiveObject();
-                    break;
-                case InteractionMode.ScreenTouch:
-                    CheckScreenTouch();
-                    break;
+
             }
         }
 
