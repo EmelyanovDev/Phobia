@@ -10,7 +10,7 @@ namespace Player
         [SerializeField] private float squatSpeed;
 
         private Vector3 _standingPosition;
-        private Vector3 _targetPosition;
+        [SerializeField] private Vector3 _targetPosition;
 
         private void Awake()
         {
@@ -24,12 +24,13 @@ namespace Player
         
         private void ChangeSitting()
         {
-            _targetPosition = _targetPosition == squatPosition ? _standingPosition : squatPosition;
+            if (_targetPosition == squatPosition)
+                _targetPosition = _standingPosition;
+            else if (_targetPosition == _standingPosition)
+                _targetPosition = squatPosition;
         }
 
-        private void FixedUpdate() => MoveToTargetPosition();
-
-        private void MoveToTargetPosition()
+        private void FixedUpdate()
         {
             if (transform.localPosition == _targetPosition)
                 return;

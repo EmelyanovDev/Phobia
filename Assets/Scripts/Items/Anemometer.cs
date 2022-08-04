@@ -11,7 +11,6 @@ namespace Items
         [SerializeField] private float[] ghostDistances;
         [SerializeField] private Image activityDisplay;
         [SerializeField] private float actionDelay;
-        
         [SerializeField] private Transform _ghost;
         
         private void Start()

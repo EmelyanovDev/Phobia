@@ -21,9 +21,8 @@ namespace UI
             _playerInteraction = PlayerInteraction.Instance;
             _dropdown = GetComponent<TMP_Dropdown>();
             _saveSystem = new JsonSaveSystem();
+            SetInteractionMode();
         }
-        
-        private void Start() => SetInteractionMode();
 
         private void SetInteractionMode()
         {

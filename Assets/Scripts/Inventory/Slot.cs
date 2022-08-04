@@ -34,12 +34,6 @@ namespace Inventory
             slotItemView.ChangeTransparency(transparency);
         }
 
-        public void ReturnItemFromHand()
-        {
-            SelfItem.gameObject.SetActive(false);
-            slotItemView.ChangeTransparency(1f);
-        }
-
         public void ReleaseSlot()
         {
             slotItemView.ChangeIcon(null);
