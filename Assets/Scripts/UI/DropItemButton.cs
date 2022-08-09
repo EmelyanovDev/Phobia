@@ -1,3 +1,4 @@
+using System;
 using Player;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -6,16 +7,22 @@ namespace UI
 {
     public class DropItemButton : MonoBehaviour, IPointerClickHandler
     {
-        private PlayerHands _playerHands;
+        public static Action OnButtonClick;
 
-        private void Awake()
+        private void Start()
         {
-            _playerHands = PlayerHands.Instance;
+            PlayerHands.OnItemTaken += gameObject.SetActive;
+            gameObject.SetActive(false);
+        }
+        
+        private void OnDestroy()
+        {
+            PlayerHands.OnItemTaken -= gameObject.SetActive;
         }
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            _playerHands.DropItem();
+            OnButtonClick?.Invoke();
         }
     }
 }

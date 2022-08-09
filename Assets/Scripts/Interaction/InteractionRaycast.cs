@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Interaction
 {
@@ -19,7 +18,6 @@ namespace Interaction
         {
             Ray ray = _camera.ScreenPointToRay(_screenCenter);
             RaycastHit hit;
-            _ray = ray;
             Physics.Raycast(ray, out hit);
             _hit = hit;
             return Physics.Raycast(ray, out hit) ? hit.collider : null;

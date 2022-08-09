@@ -1,4 +1,5 @@
 ﻿using Interaction.InteractiveObjects;
+using Interaction.InteractiveObjects.Item;
 using UnityEngine;
 using UnityEngine.UI;
 using Utilities;
@@ -22,7 +23,6 @@ namespace Items
         private void ChangeDisplay()
         {
             if (InHand == false) return;
-
             float distance = Vector3.Distance(transform.position, _ghost.transform.position);
             int colorIndex = ArrayUtility.GetRangeIndex(distance, ghostDistances);
             activityDisplay.color = activityColors[colorIndex];

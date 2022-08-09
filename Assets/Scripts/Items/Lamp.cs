@@ -1,10 +1,8 @@
-﻿using Interaction.InteractiveObjects;
-using UnityEngine;
+﻿using Interaction.InteractiveObjects.Item;
 
 namespace Items
 {
     public class Lamp : Item
     {
-        
     }
 }

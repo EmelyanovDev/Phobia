@@ -1,4 +1,4 @@
-﻿using Interaction.InteractiveObjects;
+﻿using Interaction.InteractiveObjects.Item;
 
 namespace Items
 {

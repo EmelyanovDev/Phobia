@@ -17,7 +17,7 @@ namespace View
             Vector3 angles = transform.eulerAngles;
             angles.x = (angles.x > 180) ? angles.x - 360 : angles.x;
             angles.x = Mathf.Clamp(angles.x, rotationLimits.x, rotationLimits.y);
-            transform.rotation = Quaternion.Euler(angles);
+            transform.eulerAngles = angles;
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using UI;
+﻿using UI;
 using UnityEngine;
 
 namespace Player
@@ -10,7 +9,7 @@ namespace Player
         [SerializeField] private float squatSpeed;
 
         private Vector3 _standingPosition;
-        [SerializeField] private Vector3 _targetPosition;
+        private Vector3 _targetPosition;
 
         private void Awake()
         {
@@ -18,11 +17,11 @@ namespace Player
             _targetPosition = _standingPosition;
         }
 
-        private void OnEnable() => SquatButton.OnButtonClick += ChangeSitting;
+        private void OnEnable() => SquatButton.OnButtonClick += ChangeTargetPosition;
         
-        private void OnDisable() => SquatButton.OnButtonClick += ChangeSitting;
+        private void OnDisable() => SquatButton.OnButtonClick += ChangeTargetPosition;
         
-        private void ChangeSitting()
+        private void ChangeTargetPosition()
         {
             if (_targetPosition == squatPosition)
                 _targetPosition = _standingPosition;

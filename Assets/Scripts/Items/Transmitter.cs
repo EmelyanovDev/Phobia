@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using Interaction.InteractiveObjects;
+using Interaction.InteractiveObjects.Item;
 using UnityEngine;
 
 namespace Items

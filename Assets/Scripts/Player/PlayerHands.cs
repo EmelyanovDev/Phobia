@@ -1,4 +1,6 @@
-﻿using Inventory;
+﻿using System;
+using Inventory;
+using UI;
 using UnityEngine;
 using Utilities;
 
@@ -6,40 +8,53 @@ namespace Player
 {
     public class PlayerHands : Singleton<PlayerHands>
     {
-        [SerializeField] private GameObject itemButtons;
         [SerializeField] private Transform itemsSpawnPoint;
         
         private Slot _takenItemSlot;
         
         public bool IsBusy => _takenItemSlot != null;
 
+        public static Action<bool> OnItemTaken;
+
+        private void OnEnable()
+        {
+            DropItemButton.OnButtonClick += DropItem;
+        }
+        
+        private void OnDisable()
+        {
+            DropItemButton.OnButtonClick -= DropItem;
+        }
+
         private void TakeItem(Slot itemSlot)
         {
             _takenItemSlot = itemSlot;
-            itemButtons.SetActive(true);
-            itemSlot.ChangeTransparency(0.5f);
             var item = itemSlot.SelfItem;
+            itemSlot.ChangeViewTransparency(0.5f);
             item.HandMode(true, itemsSpawnPoint);
-            item.transform.parent = itemsSpawnPoint;
+            item.transform.SetParent(itemsSpawnPoint);
             item.gameObject.SetActive(true);
+            
+            OnItemTaken?.Invoke(true);
         }
 
         private void ReturnItemInSlot()
         {
+            _takenItemSlot.ChangeViewTransparency(1f);
             _takenItemSlot.SelfItem.gameObject.SetActive(false);
-            _takenItemSlot.ChangeTransparency(1f);
-            itemButtons.SetActive(false);
             _takenItemSlot = null;
+            
+            OnItemTaken?.Invoke(false);
         }
 
         public void ChangeItem(Slot itemSlot)
         {
             if(IsBusy)
-            {
+            { 
                 var previousSlot = _takenItemSlot;
-                 ReturnItemInSlot();
-                 if(previousSlot != itemSlot)
-                     TakeItem(itemSlot);
+                ReturnItemInSlot();
+                if(previousSlot != itemSlot)
+                    TakeItem(itemSlot);
             }
             else
             {
@@ -50,11 +65,12 @@ namespace Player
         public void DropItem()
         {
             var item = _takenItemSlot.SelfItem;
-            item.transform.parent = null;
+            item.transform.SetParent(null);
             item.HandMode(false, itemsSpawnPoint);
-            itemButtons.SetActive(false);
             _takenItemSlot.ReleaseSlot();
             _takenItemSlot = null;
+            
+            OnItemTaken?.Invoke(false);
         }
     }
 }
