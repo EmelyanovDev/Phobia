@@ -11,13 +11,13 @@ namespace UI
 
         private void Start()
         {
-            PlayerHands.OnItemTaken += gameObject.SetActive;
+            PlayerHand.OnItemChanged += gameObject.SetActive;
             gameObject.SetActive(false);
         }
         
         private void OnDestroy()
         {
-            PlayerHands.OnItemTaken -= gameObject.SetActive;
+            PlayerHand.OnItemChanged -= gameObject.SetActive;
         }
 
         public void OnPointerClick(PointerEventData eventData)

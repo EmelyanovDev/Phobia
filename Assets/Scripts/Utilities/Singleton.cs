@@ -10,10 +10,8 @@ namespace Utilities
         {
             get
             {
-                if (_instance != null) 
-                    return _instance;
+                if (_instance != null) return _instance;
                 _instance = FindObjectOfType<TSource>();
-                
                 return _instance;
             }
         }

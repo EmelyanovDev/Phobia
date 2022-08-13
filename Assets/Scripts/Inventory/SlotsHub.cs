@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using Interaction.InteractiveObjects.Item;
 using Player;
@@ -9,24 +8,24 @@ namespace Inventory
     public class SlotsHub : Singleton<SlotsHub>
     {
         private Slot[] _slots;
-        private PlayerHands _playerHands;
+        private PlayerHand _playerHand;
 
         private void Awake()
         {
             _slots = GetComponentsInChildren<Slot>();
-            _playerHands = PlayerHands.Instance;
+            _playerHand = PlayerHand.Instance;
         }
 
         private void OnEnable()
         {
             foreach (var slot in _slots)
-                slot.OnSlotClicked += _playerHands.ChangeItem;
+                slot.OnSlotClicked += _playerHand.ChangeItem;
         }
         
         private void OnDisable()
         {
             foreach (var slot in _slots)
-                slot.OnSlotClicked += _playerHands.ChangeItem;
+                slot.OnSlotClicked += _playerHand.ChangeItem;
         }
 
         public void FillEmptySlot(Item item)
@@ -34,8 +33,8 @@ namespace Inventory
             var slot = GetEmptySlot();
             if (slot == null) return;
             slot.FillSlot(item);
-            if(_playerHands.IsBusy == false)
-                _playerHands.ChangeItem(slot);
+            if(_playerHand.IsBusy == false)
+                _playerHand.ChangeItem(slot);
         }
 
         private Slot GetEmptySlot()

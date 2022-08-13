@@ -6,7 +6,7 @@ using Utilities;
 
 namespace Player
 {
-    public class PlayerHands : Singleton<PlayerHands>
+    public class PlayerHand : Singleton<PlayerHand>
     {
         [SerializeField] private Transform itemsSpawnPoint;
         
@@ -14,7 +14,7 @@ namespace Player
         
         public bool IsBusy => _takenItemSlot != null;
 
-        public static Action<bool> OnItemTaken;
+        public static Action<bool> OnItemChanged;
 
         private void OnEnable()
         {
@@ -28,23 +28,14 @@ namespace Player
 
         private void TakeItem(Slot itemSlot)
         {
-            _takenItemSlot = itemSlot;
-            var item = itemSlot.SelfItem;
-            itemSlot.ChangeViewTransparency(0.5f);
-            item.HandMode(true, itemsSpawnPoint);
-            item.transform.SetParent(itemsSpawnPoint);
-            item.gameObject.SetActive(true);
-            
-            OnItemTaken?.Invoke(true);
+            itemSlot.TakeItem(itemsSpawnPoint);
+            ChangeItemSlot(itemSlot);
         }
 
         private void ReturnItemInSlot()
         {
-            _takenItemSlot.ChangeViewTransparency(1f);
-            _takenItemSlot.SelfItem.gameObject.SetActive(false);
-            _takenItemSlot = null;
-            
-            OnItemTaken?.Invoke(false);
+            _takenItemSlot.ReturnItemFromHand();
+            ChangeItemSlot(null);
         }
 
         public void ChangeItem(Slot itemSlot)
@@ -62,15 +53,16 @@ namespace Player
             }
         }
 
-        public void DropItem()
+        private void DropItem()
         {
-            var item = _takenItemSlot.SelfItem;
-            item.transform.SetParent(null);
-            item.HandMode(false, itemsSpawnPoint);
             _takenItemSlot.ReleaseSlot();
-            _takenItemSlot = null;
-            
-            OnItemTaken?.Invoke(false);
+            ChangeItemSlot(null);
+        }
+
+        private void ChangeItemSlot(Slot itemSlot)
+        {
+            _takenItemSlot = itemSlot;
+            OnItemChanged?.Invoke(itemSlot);
         }
     }
 }

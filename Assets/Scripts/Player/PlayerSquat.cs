@@ -1,4 +1,5 @@
-﻿using UI;
+﻿using System.Collections;
+using UI;
 using UnityEngine;
 
 namespace Player
@@ -31,8 +32,7 @@ namespace Player
 
         private void FixedUpdate()
         {
-            if (transform.localPosition == _targetPosition)
-                return;
+            if (transform.localPosition == _targetPosition) return;
             float speed = squatSpeed * Time.fixedDeltaTime;
             transform.localPosition = Vector3.MoveTowards(transform.localPosition, _targetPosition, speed);
         }

@@ -5,7 +5,7 @@ namespace View
     public class CameraRotation : MonoBehaviour
     {
         [SerializeField] private Vector2 rotationLimits;
-
+        
         public void RotateCamera(float rotate)
         {
             transform.localEulerAngles += new Vector3(rotate, 0);

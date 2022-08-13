@@ -4,10 +4,17 @@ namespace Tasks
 {
     [CreateAssetMenu(fileName = "Task", menuName = "New Task")]
     
-    public abstract class Task : ScriptableObject
+    public class Task : ScriptableObject
     {
         [SerializeField] private string taskDescription;
 
-        public abstract void CheckExecution();
+        public string TaskDescription => taskDescription;
+        
+
     }
 }
+/*
+Услышать голос призрака из рации
+Получить 5-й уровень активности на анемометре
+Спугнуть призрака при помощи креста
+*/

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Player
@@ -11,6 +12,8 @@ namespace Player
         private Joystick _joystick;
         private Rigidbody _rigidbody;
 
+        public static Action OnPlayerMoved;
+
         private void Awake()
         {
             _joystick = Joystick.Instance;
@@ -21,9 +24,11 @@ namespace Player
 
         private void Move()
         {
+            if (_joystick.Direction == Vector3.zero) return;
             Vector3 move = transform.rotation * _joystick.Direction;
-            move *= movementSpeed * Time.deltaTime;
+            move *= movementSpeed * Time.fixedDeltaTime;
             _rigidbody.velocity = new Vector3(move.x, _rigidbody.velocity.y, move.z);
+            OnPlayerMoved?.Invoke();
         }
     }
 }

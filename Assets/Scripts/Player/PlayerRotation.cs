@@ -23,7 +23,7 @@ namespace Player
         private void RotatePlayer(Vector2 touchDelta)
         {
             Vector2 rotate = touchDelta * Time.deltaTime * sensitivity;
-            Vector3 target = transform.localEulerAngles += new Vector3(0, rotate.x);
+            Vector3 target = transform.localEulerAngles + new Vector3(0, rotate.x);
             transform.localEulerAngles = target;
             _cameraRotation.RotateCamera(-rotate.y);
         }

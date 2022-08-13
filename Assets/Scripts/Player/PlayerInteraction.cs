@@ -1,6 +1,6 @@
 ﻿using Interaction;
 using Interaction.InteractionModes;
-using SaveSystem;
+using Save;
 using UnityEngine;
 using Utilities;
 
@@ -12,26 +12,18 @@ namespace Player
     public class PlayerInteraction : Singleton<PlayerInteraction>
     {
         private InteractionMode _currentInteractionMode;
-
-        private ButtonMode _buttonMode;
-        private TouchScreenMode _touchScreenMode;
         
-        public int ModeIndex => 
+        private InteractionMode _buttonMode;
+        private InteractionMode _touchScreenMode;
+        
+        public int InteractionModeIndex => 
             _currentInteractionMode == _buttonMode ? 0 : 1;
 
         private void Awake()
         {
             _buttonMode = GetComponent<ButtonMode>();
             _touchScreenMode = GetComponent<TouchScreenMode>();
-            
-            LoadSavedMode();
-        }
-        
-        private void LoadSavedMode()
-        {
-            var saveSystem = new JsonSaveSystem();
-            SaveData data = saveSystem.LoadData();
-            ChangeInteractionMode(data.interactionModeIndex);
+            ChangeInteractionMode(JsonSave.LoadData().interactionModeIndex);
         }
 
         private void Update()
@@ -41,10 +33,12 @@ namespace Player
 
         public void ChangeInteractionMode(int modeIndex)
         {
-            if (modeIndex == 0)
-                _currentInteractionMode = _buttonMode;
-            else if (modeIndex == 1)
-                _currentInteractionMode = _touchScreenMode;
+            _currentInteractionMode = modeIndex switch
+            {
+                0 => _buttonMode,
+                1 => _touchScreenMode,
+                _ => _currentInteractionMode
+            };
         }
     }
 }

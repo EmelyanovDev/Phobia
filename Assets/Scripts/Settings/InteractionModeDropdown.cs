@@ -1,5 +1,5 @@
 ﻿using Player;
-using SaveSystem;
+using Save;
 using TMPro;
 using UnityEngine;
 
@@ -13,14 +13,12 @@ namespace Settings
         
         private PlayerInteraction _playerInteraction;
         private TMP_Dropdown _dropdown;
-        private JsonSaveSystem _saveSystem;
 
         private void Awake()
         {
             _playerInteraction = PlayerInteraction.Instance;
             _dropdown = GetComponent<TMP_Dropdown>();
-            _saveSystem = new JsonSaveSystem();
-            LoadSavedMode();
+            _dropdown.value = JsonSave.LoadData().interactionModeIndex;
         }
 
         private void OnEnable()
@@ -32,25 +30,19 @@ namespace Settings
         {
             _dropdown.onValueChanged.RemoveListener(ChangeInteractionMode);
         }
-
-        private void LoadSavedMode()
-        {
-            var data = _saveSystem.LoadData();
-            _dropdown.value = data.interactionModeIndex;
-        }
-
+        
         private void ChangeInteractionMode(int modeIndex)
         {
             _playerInteraction.ChangeInteractionMode(modeIndex);
             buttonModeElements.SetActive(modeIndex == 0);
-            SaveNewMode(modeIndex);
+            SaveMode(modeIndex);
         }
 
-        private void SaveNewMode(int modeIndex)
+        private void SaveMode(int modeIndex)
         {
-            var data = _saveSystem.LoadData();
+            var data = JsonSave.LoadData();
             data.interactionModeIndex = modeIndex;
-            _saveSystem.SaveData(data);
+            JsonSave.SaveData(data);
         }
     }
 }

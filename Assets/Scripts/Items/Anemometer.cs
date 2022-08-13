@@ -1,5 +1,4 @@
-﻿using Interaction.InteractiveObjects;
-using Interaction.InteractiveObjects.Item;
+﻿using Interaction.InteractiveObjects.Item;
 using UnityEngine;
 using UnityEngine.UI;
 using Utilities;

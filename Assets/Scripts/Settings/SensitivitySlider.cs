@@ -1,5 +1,5 @@
 ﻿using Player;
-using SaveSystem;
+using Save;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,24 +9,21 @@ namespace Settings
     
     public class SensitivitySlider : MonoBehaviour
     {
-        private JsonSaveSystem _saveSystem;
         private Slider _slider;
         private PlayerRotation _playerRotation;
 
         private void Awake()
         {
-            _saveSystem = new JsonSaveSystem();
             _slider = GetComponent<Slider>();
             _playerRotation = PlayerRotation.Instance;
-            
-            InitSensitivity();
+            LoadSensitivity();
         }
 
-        private void InitSensitivity()
+        private void LoadSensitivity()
         {
-            var data = _saveSystem.LoadData();
-            _slider.value = data.sensitivity;
-            _playerRotation.ChangeSensitivity(data.sensitivity);
+            float sensitivity = JsonSave.LoadData().sensitivity;
+            _slider.value = sensitivity;
+            _playerRotation.ChangeSensitivity(sensitivity);
         }
         
         private void OnEnable() => _slider.onValueChanged.AddListener(ChangeSensitivity);
@@ -41,9 +38,9 @@ namespace Settings
         
         private void SaveSensitivity(float value)
         {
-            var data = _saveSystem.LoadData();
+            var data = JsonSave.LoadData();
             data.sensitivity = value;
-            _saveSystem.SaveData(data);
+            JsonSave.SaveData(data);
         }
     }
 }

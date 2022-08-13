@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Interaction.InteractiveObjects.Item;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Inventory
@@ -8,6 +9,9 @@ namespace Inventory
     public class SlotItemView : MonoBehaviour
     {
         [SerializeField] private Image itemIcon;
+        [SerializeField] private float takenItemTransparency;
+        
+        private float _defaultTransparency;
 
         public void ChangeIcon(Sprite icon)
         {
@@ -15,10 +19,11 @@ namespace Inventory
             gameObject.SetActive(icon != null);
         }
         
-        public void ChangeTransparency(float value)
+        public void ChangeTransparency(ItemStatus itemStatus)
         {
+            float transparency = itemStatus == ItemStatus.Taken ? _defaultTransparency : takenItemTransparency;
             var color = itemIcon.color;
-            color.a = value;
+            color.a = transparency;
             itemIcon.color = color;
         }
     }
