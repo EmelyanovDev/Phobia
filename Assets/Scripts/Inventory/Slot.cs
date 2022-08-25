@@ -13,7 +13,7 @@ namespace Inventory
 
         public Item SelfItem => _selfItem;
         
-        public Action<Slot> OnSlotClicked;
+        public event Action<Slot> OnSlotClicked;
 
         public void FillSlot(Item item)
         {
@@ -22,10 +22,10 @@ namespace Inventory
             _selfItem = item;
         }
 
-        public void ReleaseSlot()
+        public void ReleaseSlot(Transform dropPoint)
         {
             slotItemView.ChangeIcon(null);
-            _selfItem.DropItem();
+            _selfItem.DropItem(dropPoint);
             _selfItem = null;
         }
 
@@ -35,7 +35,7 @@ namespace Inventory
             _selfItem.gameObject.SetActive(false);
         }
 
-        public void TakeItem(Transform handPoint)
+        public void TakeItemInHand(Transform handPoint)
         {
             slotItemView.ChangeTransparency(ItemStatus.Taken);
             _selfItem.TakeItem(handPoint);

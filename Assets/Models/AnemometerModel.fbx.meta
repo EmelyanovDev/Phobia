@@ -13,7 +13,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Material.018
-    second: {fileID: 2100000, guid: 9f637c6a197dc0b43ab4f4a79bed2366, type: 2}
+    second: {fileID: 2100000, guid: 9099f6ce165f3314c924fce7c1d61355, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -98,7 +98,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 0.0016
+    globalScale: 0.16
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0

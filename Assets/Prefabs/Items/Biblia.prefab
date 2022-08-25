@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 2302158896271699445}
   - component: {fileID: 4914691995259047858}
   - component: {fileID: 4021648164828691903}
+  - component: {fileID: 4133357338628268565}
   m_Layer: 0
   m_Name: Biblia
   m_TagString: Untagged
@@ -29,7 +30,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5269286661409435749}
-  m_LocalRotation: {x: 0.000000021855694, y: 0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -140,5 +141,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7a8799ae8519444b9e06066aaa688691, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4133357338628268565
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5269286661409435749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8a6e7dd11144821b0332a87251b775f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

@@ -1,5 +1,5 @@
 ﻿using System;
-using Interaction.InteractionModes;
+using Interaction.Modes;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -9,7 +9,7 @@ namespace Interaction
     
     public class InteractionButton : MonoBehaviour, IPointerClickHandler
     {
-        public static Action OnButtonClick;
+        public static event Action OnButtonClick;
 
         private void OnEnable()
         {

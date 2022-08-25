@@ -2,15 +2,15 @@
 
 namespace Tasks
 {
-    [CreateAssetMenu(fileName = "Task", menuName = "New Task")]
     
-    public class Task : ScriptableObject
+    
+    public abstract class Task : ScriptableObject
     {
         [SerializeField] private string taskDescription;
 
         public string TaskDescription => taskDescription;
-        
 
+        public abstract void CheckExecution();
     }
 }
 /*

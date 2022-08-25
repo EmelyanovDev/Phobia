@@ -12,7 +12,7 @@ namespace Player
         private Joystick _joystick;
         private Rigidbody _rigidbody;
 
-        public static Action OnPlayerMoved;
+        public static event Action OnPlayerMoved;
 
         private void Awake()
         {

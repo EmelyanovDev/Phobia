@@ -3,12 +3,10 @@ using UnityEngine;
 
 namespace Interaction.InteractiveObjects.Item
 {
-    [RequireComponent(typeof(Rigidbody))]
-    [RequireComponent(typeof(Collider))]
     [RequireComponent(typeof(ItemLayer))]
     [RequireComponent(typeof(ItemPhysics))]
     
-    public abstract class Item : MonoBehaviour, IInteractive
+    public class Item : MonoBehaviour, IInteractive
     {
         [SerializeField] private Sprite itemIcon;
 
@@ -16,7 +14,7 @@ namespace Interaction.InteractiveObjects.Item
         private ItemPhysics _physics;
         private ItemLayer _layer;
         
-        protected bool InHand;
+        protected bool _inHand;
         
         public Sprite ItemIcon => itemIcon;
 
@@ -39,14 +37,15 @@ namespace Interaction.InteractiveObjects.Item
             ChangeTransform(handPoint);
         }
 
-        public void DropItem()
+        public void DropItem(Transform dropPoint)
         {
             ChangeHandCondition(false, null);
+            ChangeTransform(dropPoint);
         }
 
         private void ChangeHandCondition(bool condition, Transform parent)
         {
-            InHand = condition;
+            _inHand = condition;
             _physics.ChangePhysics(!condition);
             _layer.ChangeLayer(condition);
             transform.SetParent(parent);

@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using Interaction.InteractiveObjects;
 using Interaction.InteractiveObjects.Item;
 using UnityEngine;
 
@@ -17,7 +16,7 @@ namespace Items
             while (true)
             {
                 yield return new WaitForSeconds(Random.Range(delayRange.x, delayRange.y));
-                if(InHand == false) continue;
+                if(_inHand == false) continue;
                 ghostVoice.Play();
             }
         }

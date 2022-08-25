@@ -192,6 +192,7 @@ GameObject:
   - component: {fileID: 3509308250661494832}
   - component: {fileID: 8221222696139834736}
   - component: {fileID: 5731544420322355338}
+  - component: {fileID: 7717200020721812355}
   m_Layer: 0
   m_Name: Anemometer
   m_TagString: Untagged
@@ -245,7 +246,7 @@ MeshRenderer:
   m_Materials:
   - {fileID: 2100000, guid: 4fb99db798e2e9640a85138bc1bbe232, type: 2}
   - {fileID: -4246479402191905792, guid: d76ec2c18d9465e468caf4d06e281774, type: 3}
-  - {fileID: 2100000, guid: 9f637c6a197dc0b43ab4f4a79bed2366, type: 2}
+  - {fileID: 2100000, guid: 9099f6ce165f3314c924fce7c1d61355, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -333,5 +334,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7a8799ae8519444b9e06066aaa688691, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7717200020721812355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8859733289807551803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8a6e7dd11144821b0332a87251b775f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

@@ -1,4 +1,4 @@
-﻿using Interaction.InteractionModes;
+﻿using Interaction.Modes;
 using UnityEngine;
 using UnityEngine.UI;
 

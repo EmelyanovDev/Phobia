@@ -9,12 +9,13 @@ namespace Player
     public class PlayerHand : Singleton<PlayerHand>
     {
         [SerializeField] private Transform itemsSpawnPoint;
+        [SerializeField] private Transform itemsDropPoint;
         
         private Slot _takenItemSlot;
         
         public bool IsBusy => _takenItemSlot != null;
 
-        public static Action<bool> OnItemChanged;
+        public static event Action<bool> OnItemChanged;
 
         private void OnEnable()
         {
@@ -28,14 +29,26 @@ namespace Player
 
         private void TakeItem(Slot itemSlot)
         {
-            itemSlot.TakeItem(itemsSpawnPoint);
-            ChangeItemSlot(itemSlot);
+            itemSlot.TakeItemInHand(itemsSpawnPoint);
+            ChangeSlot(itemSlot);
+        }
+        
+        private void DropItem()
+        {
+            _takenItemSlot.ReleaseSlot(itemsDropPoint);
+            ChangeSlot(null);
+        }
+
+        private void ChangeSlot(Slot itemSlot)
+        {
+            _takenItemSlot = itemSlot;
+            OnItemChanged?.Invoke(itemSlot);
         }
 
         private void ReturnItemInSlot()
         {
             _takenItemSlot.ReturnItemFromHand();
-            ChangeItemSlot(null);
+            ChangeSlot(null);
         }
 
         public void ChangeItem(Slot itemSlot)
@@ -51,18 +64,6 @@ namespace Player
             {
                 TakeItem(itemSlot);
             }
-        }
-
-        private void DropItem()
-        {
-            _takenItemSlot.ReleaseSlot();
-            ChangeItemSlot(null);
-        }
-
-        private void ChangeItemSlot(Slot itemSlot)
-        {
-            _takenItemSlot = itemSlot;
-            OnItemChanged?.Invoke(itemSlot);
         }
     }
 }

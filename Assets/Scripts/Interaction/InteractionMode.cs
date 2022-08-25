@@ -8,11 +8,11 @@ namespace Interaction
     {
         [SerializeField] private float permissibleDistance;
 
-        protected InteractionRaycast InteractionRaycast;
+        protected InteractionRaycast _interactionRaycast;
 
         private void Awake()
         {
-            InteractionRaycast = GetComponent<InteractionRaycast>();
+            _interactionRaycast = GetComponent<InteractionRaycast>();
         }
 
         protected IInteractive IsInteractive(Collider collider)

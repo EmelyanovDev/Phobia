@@ -18,6 +18,10 @@ namespace Settings
             _playerRotation = PlayerRotation.Instance;
             LoadSensitivity();
         }
+        
+        private void OnEnable() => _slider.onValueChanged.AddListener(ChangeSensitivity);
+
+        private void OnDisable() => _slider.onValueChanged.RemoveListener(ChangeSensitivity);
 
         private void LoadSensitivity()
         {
@@ -25,10 +29,6 @@ namespace Settings
             _slider.value = sensitivity;
             _playerRotation.ChangeSensitivity(sensitivity);
         }
-        
-        private void OnEnable() => _slider.onValueChanged.AddListener(ChangeSensitivity);
-
-        private void OnDisable() => _slider.onValueChanged.RemoveListener(ChangeSensitivity);
 
         private void ChangeSensitivity(float value)
         {

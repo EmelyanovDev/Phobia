@@ -7,7 +7,7 @@ namespace UI
 {
     public class DropItemButton : MonoBehaviour, IPointerClickHandler
     {
-        public static Action OnButtonClick;
+        public static event Action OnButtonClick;
 
         private void Start()
         {

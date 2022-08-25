@@ -1,5 +1,5 @@
 ﻿using Interaction;
-using Interaction.InteractionModes;
+using Interaction.Modes;
 using Save;
 using UnityEngine;
 using Utilities;

@@ -21,7 +21,7 @@ namespace Items
 
         private void ChangeDisplay()
         {
-            if (InHand == false) return;
+            if (_inHand == false) return;
             float distance = Vector3.Distance(transform.position, _ghost.transform.position);
             int colorIndex = ArrayUtility.GetRangeIndex(distance, ghostDistances);
             activityDisplay.color = activityColors[colorIndex];
