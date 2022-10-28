@@ -2,24 +2,27 @@
 
 namespace Interaction.InteractiveObjects
 {
-    [RequireComponent(typeof(Animator))]
+    [RequireComponent(typeof(HingeJoint))]
 
     public class DoorAnimation : MonoBehaviour, IInteractive
     {
-        private Animator _animator;
+        [SerializeField] private float opennessPosition;
+        
+        private HingeJoint _hingeJoint;
         private bool _isOpen;
-
-        private int _opening = Animator.StringToHash("DoorOpening");
-        private int _closing = Animator.StringToHash("DoorClosing");
+        private float _startPosition;
 
         private void Awake()
         {
-            _animator = GetComponent<Animator>();
+            _hingeJoint = GetComponent<HingeJoint>();
+            _startPosition = _hingeJoint.spring.targetPosition;
         }
 
         public void Interact()
         {
-            _animator.Play(_isOpen ? _closing : _opening);
+            var spring = _hingeJoint.spring;
+            spring.targetPosition = _isOpen ? _startPosition : opennessPosition;
+            _hingeJoint.spring = spring;
             _isOpen = !_isOpen;
         }
     }

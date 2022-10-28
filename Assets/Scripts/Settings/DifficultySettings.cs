@@ -4,7 +4,7 @@ namespace Settings
 {
     [CreateAssetMenu(fileName = "GhostSettings", menuName = "Settings")]
     
-    public class GhostSettings : ScriptableObject
+    public class DifficultySettings : ScriptableObject
     {
         [SerializeField] private AnimationCurve attackCurve;
         [SerializeField] private AnimationCurve difficultCurve;

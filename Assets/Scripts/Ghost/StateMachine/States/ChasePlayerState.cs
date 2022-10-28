@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Ghost.StateMachine.States
 {
@@ -9,6 +10,11 @@ namespace Ghost.StateMachine.States
         private void Update()
         {
             _agent.SetDestination(player.position);
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            
         }
     }
 }

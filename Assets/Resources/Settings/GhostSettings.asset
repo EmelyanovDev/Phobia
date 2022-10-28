@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 540d7127a33c4aa790dd2e4adca45929, type: 3}
   m_Name: GhostSettings
   m_EditorClassIdentifier: 
-  activityCurve:
+  attackCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
@@ -27,9 +27,9 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0.5
       value: 1
-      inSlope: 2
-      outSlope: -2
-      tangentMode: 69
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
       outWeight: 0.33333334
@@ -69,5 +69,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  activityPeriod: 60
+  attackPeriod: 30
+  maximumAttackChance: 0
+  maximumDifficult: 0
   standingTimeRange: {x: 0, y: 0}

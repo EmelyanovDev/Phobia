@@ -1,22 +1,25 @@
-﻿using System.Collections;
-using Player;
+﻿using System;
+using System.Collections;
 using UnityEngine;
-using UnityEngine.AI;
+using Utilities;
 using Random = UnityEngine.Random;
 
 namespace Ghost.StateMachine.States
 {
-    [RequireComponent(typeof(NavMeshAgent))]   
+    [RequireComponent(typeof(GhostActivity))]
     
     public class RandomMovementState : GhostState
     {
         [SerializeField] private Vector2 standingTimeRange;
         [SerializeField] private HouseRandomizer houseRandomizer;
-        [SerializeField] private PlayerMind playerMind;
+        
+        private GhostActivity _activity;
+        private float _periodTime;
 
         private void Start()
         {
             StartCoroutine(SetNewDestination());
+            _activity = GetComponent<GhostActivity>();
         }
 
         private float GetRandomDelay()
@@ -26,6 +29,7 @@ namespace Ghost.StateMachine.States
 
         private IEnumerator SetNewDestination()
         {
+            print("A");
             while (true)
             {
                 yield return new WaitForSeconds(GetRandomDelay());
@@ -37,8 +41,9 @@ namespace Ghost.StateMachine.States
 
         private void CheckForSwitch()
         {
-            //if(playerMind.)
-            _stateSwitcher.SwitchState<ChasePlayerState>();
+            // print(_activity.GetActivity());
+            // if(Randomizer.PlayLottery(_activity.GetActivity()))
+            //     _stateSwitcher.SwitchState<ChasePlayerState>();
         }
     }
 }

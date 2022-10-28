@@ -1,5 +1,4 @@
-﻿using Settings;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AI;
 
 namespace Ghost.StateMachine
@@ -9,7 +8,6 @@ namespace Ghost.StateMachine
     public abstract class GhostState : MonoBehaviour
     {
         protected IStateSwitcher _stateSwitcher;
-        protected GhostSettings _ghostSettings;
         protected NavMeshAgent _agent;
 
         private void Awake()
@@ -17,10 +15,10 @@ namespace Ghost.StateMachine
             _agent = GetComponent<NavMeshAgent>();
         }
 
-        public void Init(IStateSwitcher switcher, GhostSettings settings)
+        public void Init(IStateSwitcher switcher)
         {
             _stateSwitcher = switcher;
-            _ghostSettings = settings;
+            enabled = false;
         }
 
         public virtual void Enable() => enabled = true;
